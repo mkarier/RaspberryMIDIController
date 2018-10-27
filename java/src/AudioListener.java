@@ -1,10 +1,39 @@
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Port;
+import javax.sound.sampled.SourceDataLine;
+import javax.sound.sampled.TargetDataLine;
+import javax.sound.sampled.Line.Info;
 
 public class AudioListener implements LineListener 
 {
 	public boolean playCompleted = false;
+	private SourceDataLine lineOut;
+	private int bufferSize;
 	
+	public AudioListener(AudioInput inputLine)
+	{
+		try {
+			
+			this.lineOut = AudioSystem.getSourceDataLine(inputLine.getAudioFormat());
+			this.lineOut.addLineListener(this);
+			this.lineOut.open(inputLine.getAudioFormat());
+			this.bufferSize = inputLine.getBufferSize();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		lineOut.start();
+	}
+	
+	public SourceDataLine getLineOut() {return this.lineOut;}
+	
+	public void outputAudio(byte[] buffer)
+	{
+		this.lineOut.write(buffer, 0, buffer.length);
+	}
 	
 	@Override
 	public void update(LineEvent event) 
