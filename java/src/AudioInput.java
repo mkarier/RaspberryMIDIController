@@ -7,30 +7,55 @@ import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.Mixer.Info;
 
 
-public class AudioInputButton {
-  private int line;
-  private AudioFormat format;
-  private Info[] lines;
-  private TargetDataLine inputLine;
-  private DataLine.Info inInfo;
-  private int bufferSize;
-
-  public AudioInputButton(int line){
+public class AudioInput {
+	private int line;
+	private AudioFormat format;
+	private Info[] lines;
+	private TargetDataLine inputLine;
+	private DataLine.Info inInfo;
+	private int bufferSize;
+	private byte[] buffer;
+	private int rate = 44100;
+	private int bit = 16;
+	private int channel = 1;
+	
+  public AudioInput(int line){
     this.line = line;
     this.setup();
   }
 
-  public AudioInputButton(){
+  public AudioInput(){
     this.line = 0;
     this.setup();
   }
+  
+  public TargetDataLine getInputLine(){return this.inputLine;}
+  public AudioFormat getAudioFormat() {return this.format;}
+  public int getBufferSize() {return this.bufferSize;}
+  public synchronized byte[] getBuffer() {return this.buffer;}
+  
+  public byte[] captureAudio()
+  {
+	  inputLine.read(buffer,0,buffer.length);
+      //listen(buffer);
+	  return buffer;
+  }
 
   private void setup(){
-    format = new AudioFormat(8000, 8, 1, true, false); 
+    format = new AudioFormat(rate, bit, this.channel, true, true); 
     lines = AudioSystem.getMixerInfo();    
     inInfo = new DataLine.Info(TargetDataLine.class, format);
     bufferSize = (int) format.getSampleRate() * format.getFrameSize();
-  }
+    buffer = new byte[bufferSize];
+    try {
+    	inputLine = (TargetDataLine)AudioSystem.getMixer(lines[line]).getLine(inInfo);
+		inputLine.open(format, bufferSize);
+		inputLine.start(); 
+	} catch (LineUnavailableException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}//end of catch
+  }//end of setup
 
   public void printLineInfo(){
     for (int i = 0; i < lines.length; i++){
@@ -53,8 +78,8 @@ public class AudioInputButton {
         int sample = listen(buffer);
         if(sample > 0){
           onClick();
-        }
-      }
+        }//end of if
+      }//end of while
     }catch (LineUnavailableException e){
       System.out.println("Line " + line + " is unavailable.");
       e.printStackTrace();

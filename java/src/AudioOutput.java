@@ -7,13 +7,13 @@ import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.Line.Info;
 
-public class AudioListener implements LineListener 
+public class AudioOutput implements LineListener 
 {
 	public boolean playCompleted = false;
 	private SourceDataLine lineOut;
 	private int bufferSize;
 	
-	public AudioListener(AudioInput inputLine)
+	public AudioOutput(AudioInput inputLine)
 	{
 		try {
 			
@@ -32,7 +32,10 @@ public class AudioListener implements LineListener
 	
 	public void outputAudio(byte[] buffer)
 	{
-		this.lineOut.write(buffer, 0, buffer.length);
+		if(buffer == null)
+			return;
+		else
+			this.lineOut.write(buffer, 0, buffer.length);
 	}
 	
 	@Override
