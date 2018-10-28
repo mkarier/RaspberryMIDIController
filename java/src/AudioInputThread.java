@@ -1,10 +1,11 @@
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AudioInputThread extends Thread 
 {
 	private AudioInput input;
-	private LinkedList<byte []> bufferStack = new LinkedList<byte []>();
+	private List<byte []> bufferStack = Collections.synchronizedList(new ArrayList<byte []>());
 	private int stackSize = 10000;
 	
 	
@@ -16,10 +17,10 @@ public class AudioInputThread extends Thread
 	public synchronized int getStackSize() {return this.stackSize;}
 	public int getSize() {return this.bufferStack.size();}
 	
-	public synchronized byte[] getInput()
+	public byte[] getInput()
 	{
 		if(this.bufferStack.size() > 0)
-			return bufferStack.removeFirst();
+			return bufferStack.remove(0);
 		else
 			return null;
 	}//gets return the input
@@ -28,7 +29,7 @@ public class AudioInputThread extends Thread
 	{
 		while(true)
 		{
-			this.bufferStack.addLast(input.captureAudio());
+			this.bufferStack.add(input.captureAudio());
 		}//end of while loop
 	}//end of run method
 	
