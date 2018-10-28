@@ -17,18 +17,22 @@ public class SoundController
 	public static void main(String args[])
 	{
 		AudioInput audioInput = new AudioInput();
-		AudioListener listener = new AudioListener(audioInput);
-		SourceDataLine out = listener.getLineOut();
-		loopAudio(audioInput, listener);
+		AudioInputThread inputThread = new AudioInputThread(audioInput);
+		AudioOutput listener = new AudioOutput(audioInput);
+		AudioOutputThread outputThread = new AudioOutputThread(listener, inputThread);
+		//inputThread.setPriority(Thread.MAX_PRIORITY);
+		//outputThread.setPriority(Thread.MAX_PRIORITY);
+		inputThread.start();
+		outputThread.start();
+		
+		//loopAudio(audioInput, listener);
 	}//end of main
 	
-	private static void loopAudio(AudioInput input, AudioListener output)
+	private static void loopAudio(AudioInput input, AudioOutput output)
 	{
-		byte[] buffer;
 		while(true)
 		{
-			buffer = input.captureAudio();
-			output.outputAudio(buffer);
+			output.outputAudio(input.captureAudio());
 		}
 	}//end of loopAudio
 	
