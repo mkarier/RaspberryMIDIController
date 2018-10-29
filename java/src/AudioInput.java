@@ -9,15 +9,17 @@ import javax.sound.sampled.Mixer.Info;
 
 public class AudioInput {
 	private int line;
-	private AudioFormat format;
+	protected AudioFormat format;
 	private Info[] lines;
-	private TargetDataLine inputLine;
+	protected TargetDataLine inputLine;
 	private DataLine.Info inInfo;
-	private int bufferSize;
+	private int bufferSize = 128; //This is how the old buffer calculated the buffer size: (int) format.getSampleRate() * format.getFrameSize();;
 	private byte[] buffer;
 	private int rate = 44100;
 	private int bit = 16;
 	private int channel = 1;
+	private boolean signed = true;
+	private boolean big_endian = true;
 	
   public AudioInput(int line){
     this.line = line;
@@ -33,7 +35,7 @@ public class AudioInput {
   public AudioFormat getAudioFormat() {return this.format;}
   public int getBufferSize() {return this.bufferSize;}
   public synchronized byte[] getBuffer() {return this.buffer;}
-  
+
   public byte[] captureAudio()
   {
 	  inputLine.read(buffer,0,buffer.length);
@@ -42,10 +44,9 @@ public class AudioInput {
   }
 
   private void setup(){
-    format = new AudioFormat(rate, bit, this.channel, true, true); 
+    format = new AudioFormat(this.rate, this.bit, this.channel, this.signed, this.big_endian); 
     lines = AudioSystem.getMixerInfo();    
     inInfo = new DataLine.Info(TargetDataLine.class, format);
-    bufferSize = (int) format.getSampleRate() * format.getFrameSize();
     buffer = new byte[bufferSize];
     try {
     	inputLine = (TargetDataLine)AudioSystem.getMixer(lines[line]).getLine(inInfo);

@@ -20,8 +20,8 @@ public class SoundController
 		AudioInputThread inputThread = new AudioInputThread(audioInput);
 		AudioOutput listener = new AudioOutput(audioInput);
 		AudioOutputThread outputThread = new AudioOutputThread(listener, inputThread);
-		//inputThread.setPriority(Thread.MAX_PRIORITY);
-		//outputThread.setPriority(Thread.MAX_PRIORITY);
+		inputThread.setPriority(Thread.MAX_PRIORITY);
+		outputThread.setPriority(Thread.MAX_PRIORITY);
 		inputThread.start();
 		outputThread.start();
 		
