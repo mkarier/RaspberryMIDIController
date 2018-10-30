@@ -3,11 +3,13 @@ public class AudioOutputThread extends Thread
 {
 	private AudioOutput output;
 	private AudioInputThread inputThread;
+	private int stackSize;
 	
 	AudioOutputThread(AudioOutput output, AudioInputThread inputThread)
 	{
 		this.output = output;
 		this.inputThread = inputThread;
+		this.stackSize = inputThread.getStackSize();
 	}//end of constructor
 	
 	public void run()

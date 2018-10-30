@@ -10,7 +10,7 @@ import javax.sound.sampled.Line.Info;
 public class AudioOutput implements LineListener 
 {
 	public boolean playCompleted = false;
-	private SourceDataLine lineOut;
+	protected SourceDataLine lineOut;
 	private int bufferSize;
 	
 	public AudioOutput(AudioInput inputLine)
@@ -29,6 +29,7 @@ public class AudioOutput implements LineListener
 	}
 	
 	public SourceDataLine getLineOut() {return this.lineOut;}
+	public int getBufferSize() { return this.bufferSize;}
 	
 	public void outputAudio(byte[] buffer)
 	{

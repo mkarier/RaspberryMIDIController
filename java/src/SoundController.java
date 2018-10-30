@@ -17,13 +17,15 @@ public class SoundController
 	public static void main(String args[])
 	{
 		AudioInput audioInput = new AudioInput();
+		System.out.println("The Buffer Size = " + audioInput.getBufferSize());
 		AudioInputThread inputThread = new AudioInputThread(audioInput);
 		AudioOutput listener = new AudioOutput(audioInput);
 		AudioOutputThread outputThread = new AudioOutputThread(listener, inputThread);
 		inputThread.setPriority(Thread.MAX_PRIORITY);
-		outputThread.setPriority(Thread.MAX_PRIORITY);
+		//outputThread.setPriority(Thread.MAX_PRIORITY);
 		inputThread.start();
 		outputThread.start();
+		//**/
 		
 		//loopAudio(audioInput, listener);
 	}//end of main
