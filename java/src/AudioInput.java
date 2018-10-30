@@ -13,7 +13,7 @@ public class AudioInput {
 	private Info[] lines;
 	protected TargetDataLine inputLine;
 	private DataLine.Info inInfo;
-	private int bufferSize = 128; //This is how the old buffer calculated the buffer size: (int) format.getSampleRate() * format.getFrameSize();;
+	private int bufferSize = 1920; //This is how the old buffer calculated the buffer size: (int) format.getSampleRate() * format.getFrameSize();;
 	private byte[] buffer;
 	private int rate = 44100;
 	private int bit = 16;
@@ -45,7 +45,8 @@ public class AudioInput {
 
   private void setup(){
     format = new AudioFormat(this.rate, this.bit, this.channel, this.signed, this.big_endian); 
-    lines = AudioSystem.getMixerInfo();    
+    lines = AudioSystem.getMixerInfo();   
+    //this.bufferSize = (int) format.getSampleRate() * format.getFrameSize();
     inInfo = new DataLine.Info(TargetDataLine.class, format);
     buffer = new byte[bufferSize];
     try {
