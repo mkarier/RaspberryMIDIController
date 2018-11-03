@@ -8,24 +8,36 @@ import javax.usb.*;//*/
 
 import javax.sound.midi.*;
 import javax.sound.sampled.*;
+import javax.sound.sampled.BooleanControl.Type;
 import javax.sound.sampled.Line.Info;
 
-
+import AudioDevices.AudioInput;
+import AudioDevices.AudioInputThread;
+import AudioDevices.AudioOutput;
+import AudioDevices.AudioOutputThread;
+import AudioManiplation.VolumeControl;
+import GUI.Canvas;
+import AudioDevices.*;
 public class SoundController 
 {
 	
 	public static void main(String args[])
 	{
 		AudioInput audioInput = new AudioInput();
-		System.out.println("The Buffer Size = " + audioInput.getBufferSize());
 		AudioInputThread inputThread = new AudioInputThread(audioInput);
 		AudioOutput listener = new AudioOutput(audioInput);
 		AudioOutputThread outputThread = new AudioOutputThread(listener, inputThread);
+		
+		VolumeControl volController = new VolumeControl(listener);
+		
+		
 		inputThread.setPriority(Thread.MAX_PRIORITY);
 		//outputThread.setPriority(Thread.MAX_PRIORITY);
 		inputThread.start();
 		outputThread.start();
 		//**/
+		Canvas canvas = new Canvas();
+		canvas.addVolumeSilde(volController);
 		
 		//loopAudio(audioInput, listener);
 	}//end of main

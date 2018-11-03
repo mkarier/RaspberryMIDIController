@@ -1,3 +1,4 @@
+package AudioDevices;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ public class AudioInputThread extends Thread
 	private int stackSize = 10000;
 	
 	
-	AudioInputThread(AudioInput input)
+	public AudioInputThread(AudioInput input)
 	{
 		this.input = input;
 	}//end of constructor

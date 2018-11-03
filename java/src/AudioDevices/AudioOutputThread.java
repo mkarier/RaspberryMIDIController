@@ -1,3 +1,4 @@
+package AudioDevices;
 
 public class AudioOutputThread extends Thread 
 {
@@ -5,7 +6,7 @@ public class AudioOutputThread extends Thread
 	private AudioInputThread inputThread;
 	private int stackSize;
 	
-	AudioOutputThread(AudioOutput output, AudioInputThread inputThread)
+	public AudioOutputThread(AudioOutput output, AudioInputThread inputThread)
 	{
 		this.output = output;
 		this.inputThread = inputThread;

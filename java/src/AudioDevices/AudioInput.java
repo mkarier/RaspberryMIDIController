@@ -1,3 +1,4 @@
+package AudioDevices;
 //Copied from Franky Chanyau who posted it on stackoverflow
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -31,6 +32,7 @@ public class AudioInput {
     this.setup();
   }
   
+  //protected void start() { this.inputLine.start();}
   public TargetDataLine getInputLine(){return this.inputLine;}
   public AudioFormat getAudioFormat() {return this.format;}
   public int getBufferSize() {return this.bufferSize;}
@@ -65,72 +67,4 @@ public class AudioInput {
     }
   }
 
-  public void startListening(){
-    try{
-      inputLine = (TargetDataLine)AudioSystem.getMixer(lines[line]).getLine(inInfo);
-      inputLine.open(format, bufferSize);
-      inputLine.start(); 
-
-      byte[] buffer = new byte[bufferSize];
-
-      System.out.println("Listening on line " +line+", " + lines[line].getName() + "...");
-
-      while(true){
-        inputLine.read(buffer,0,buffer.length);
-        int sample = listen(buffer);
-        if(sample > 0){
-          onClick();
-        }//end of if
-      }//end of while
-    }catch (LineUnavailableException e){
-      System.out.println("Line " + line + " is unavailable.");
-      e.printStackTrace();
-      System.exit(1);
-    }
-  }
-
-  public int listen(byte[] eightBitByteArray)
-  {
-    int index = 0;
-    int ret = 0;
-    boolean down = false;
-    boolean up = false;
-    for (int audioByte = 0; audioByte < eightBitByteArray.length;)
-    {
-      int low = (int) eightBitByteArray[audioByte];
-      audioByte++;
-      int high = (int) eightBitByteArray[audioByte];
-      audioByte++;
-      int sample = (high << 8) + (low & 0x00ff);
-      if(sample < -1100){
-        if(!down){
-          onDown();
-          ret = sample;
-          down = true;
-        }
-      }else if(sample > 1100){
-        if(!up){
-
-          onUp();
-          ret = sample;
-          down = false;
-          up = true;
-        }
-      }
-      index++;
-    }
-    return ret;
-  }
-
-  private void onClick(){
-    System.out.println("Click!");
-  }
-
-  private void onDown(){
-    System.out.println("Down!");
-  }
-
-  private void onUp(){
-    System.out.println("Up");
-  }
 }

@@ -1,11 +1,9 @@
+package AudioDevices;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.Port;
 import javax.sound.sampled.SourceDataLine;
-import javax.sound.sampled.TargetDataLine;
-import javax.sound.sampled.Line.Info;
 
 public class AudioOutput implements LineListener 
 {
