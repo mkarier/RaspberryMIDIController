@@ -16,16 +16,19 @@ import AudioManiplation.VolumeControl;
 public class KillswitchButton implements MouseListener
 {
 	private VolumeControl muteButton;
+	
 	public KillswitchButton(ControllerCanvas canvas, VolumeControl volControler)
 	{
-		JTextArea area = new JTextArea(canvas.box.getHeight()/2, canvas.box.getWidth()/2);
-		canvas.box.add(area);
+		//JTextArea area = new JTextArea(canvas.box.getHeight()/2, canvas.box.getWidth()/2);
+		//canvas.box.add(area);
 		canvas.box.addMouseListener(this);
 		this.muteButton = volControler;
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) 
+	{
 		// TODO Auto-generated method stub
+		//this.muteButton.switchMuteButton();
 		
 	}
 	@Override

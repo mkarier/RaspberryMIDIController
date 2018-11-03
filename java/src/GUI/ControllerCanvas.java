@@ -7,6 +7,7 @@ import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 
 public class ControllerCanvas
@@ -19,10 +20,10 @@ public class ControllerCanvas
 	public ControllerCanvas()
 	{
 		this.box = new JFrame("LabelController");
-		this.box.setSize(20000, 20000);
-		JLabel label = new JLabel("VolumeController");
+		/**JTextArea label = new JTextArea("VolumeController");
 		label.setSize(20000,20000);
-		this.box.add(label);
+		this.box.add(label); //**/
+		this.box.setPreferredSize(new Dimension(300,300));
 		this.box.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.box.pack();
 		this.box.setVisible(true);

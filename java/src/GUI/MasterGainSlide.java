@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.util.Hashtable;
 
 import javax.swing.JFrame;
@@ -22,7 +23,7 @@ public class MasterGainSlide implements ChangeListener
 		int min = (int)volControl.getMinMasterGain();
 		int max = (int)volControl.getMaxMasterGain();
 		int current = (int)volControl.getCurrentMasterGain();
-		this.masterGainSlide = new JSlider(SwingConstants.VERTICAL, min, max, current);
+		this.masterGainSlide = new JSlider(SwingConstants.HORIZONTAL, min, max, current);
 		//this.masterGainSlide.setOrientation(SwingConstants.LEFT);
 		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
 		labelTable.put(new Integer(current), new JLabel("Default " + current));
@@ -32,7 +33,7 @@ public class MasterGainSlide implements ChangeListener
 		this.masterGainSlide.setPaintLabels(true);
 		this.masterGainSlide.setPaintTicks(true);
 		this.masterGainSlide.addChangeListener(this);
-		canvas.box.add(this.masterGainSlide);
+		canvas.box.add(this.masterGainSlide, BorderLayout.SOUTH);
 	}//end of constructor
 
 	
