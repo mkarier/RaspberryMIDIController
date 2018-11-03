@@ -16,7 +16,7 @@ import AudioDevices.AudioInputThread;
 import AudioDevices.AudioOutput;
 import AudioDevices.AudioOutputThread;
 import AudioManiplation.VolumeControl;
-import GUI.Canvas;
+import GUI.ControllerCanvas;
 import AudioDevices.*;
 public class SoundController 
 {
@@ -36,8 +36,9 @@ public class SoundController
 		inputThread.start();
 		outputThread.start();
 		//**/
-		Canvas canvas = new Canvas();
-		canvas.addVolumeSilde(volController);
+		ControllerCanvas controllerCanvas = new ControllerCanvas();
+		controllerCanvas.addVolumeSilde(volController);
+		controllerCanvas.addKillswitch(volController);
 		
 		//loopAudio(audioInput, listener);
 	}//end of main

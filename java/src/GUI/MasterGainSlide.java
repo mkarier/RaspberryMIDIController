@@ -16,7 +16,7 @@ public class MasterGainSlide implements ChangeListener
 	private VolumeControl volControl;
 	private JSlider masterGainSlide;
 	
-	public MasterGainSlide(JFrame box, VolumeControl volControl)
+	public MasterGainSlide(ControllerCanvas canvas, VolumeControl volControl)
 	{
 		this.volControl = volControl;
 		int min = (int)volControl.getMinMasterGain();
@@ -32,7 +32,7 @@ public class MasterGainSlide implements ChangeListener
 		this.masterGainSlide.setPaintLabels(true);
 		this.masterGainSlide.setPaintTicks(true);
 		this.masterGainSlide.addChangeListener(this);
-		box.add(this.masterGainSlide);
+		canvas.box.add(this.masterGainSlide);
 	}//end of constructor
 
 	
