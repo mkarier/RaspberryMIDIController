@@ -17,4 +17,7 @@ The way that I figured the effects would be implemented would be
 classes that extend AudioOutput, this way it can still be passed to the AudioOutputThread 
 and depending on what you are trying to do you can manipulate the buffer by overriding the 'outPutAudio' method.
 For multiple effects a way to wrap these objects will need to be created.
+
+This program was originally built for Ubuntu Mate. Although I did get it installed on Raspbian. You do have to install
+PulseAudio. (sudo apt install pulseaudio) then run the make command. 
 # RaspberryMIDIController

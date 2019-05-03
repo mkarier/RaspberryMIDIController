@@ -20,7 +20,7 @@ public class AudioInput {
 	private int bit = 16;
 	private int channel = 1;
 	private boolean signed = true;
-	private boolean big_endian = true;
+	private boolean big_endian = false;
 	
   public AudioInput(int line){
     this.line = line;
