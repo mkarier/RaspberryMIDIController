@@ -17,7 +17,7 @@ public class AudioInput {
 	private int bufferSize = 1920; //This is how the old buffer calculated the buffer size: (int) format.getSampleRate() * format.getFrameSize();;
 	private byte[] buffer;
 	private int rate = 44100;
-	private int bit = 16;
+	private int bit = 8;
 	private int channel = 1;
 	private boolean signed = true;
 	private boolean big_endian = false;
@@ -52,8 +52,9 @@ public class AudioInput {
     inInfo = new DataLine.Info(TargetDataLine.class, format);
     buffer = new byte[bufferSize];
     try {
-    	inputLine = (TargetDataLine)AudioSystem.getMixer(lines[line]).getLine(inInfo);
-		inputLine.open(format, bufferSize);
+    	//inputLine = (TargetDataLine)AudioSystem.getMixer(lines[line]).getLine(inInfo);
+		inputLine = AudioSystem.getTargetDataLine(format);
+    	inputLine.open(format, bufferSize);
 		inputLine.start(); 
 	} catch (LineUnavailableException e) {
 		// TODO Auto-generated catch block
