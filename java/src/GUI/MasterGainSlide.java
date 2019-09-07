@@ -20,15 +20,15 @@ public class MasterGainSlide implements ChangeListener
 	public MasterGainSlide(ControllerCanvas canvas, VolumeControl volControl)
 	{
 		this.volControl = volControl;
-		int min = (int)volControl.getMinMasterGain();
-		int max = (int)volControl.getMaxMasterGain();
-		int current = (int)volControl.getCurrentMasterGain();
+		Integer min = (int)volControl.getMinMasterGain();
+		Integer max = (int)volControl.getMaxMasterGain();
+		Integer current = (int)volControl.getCurrentMasterGain();
 		this.masterGainSlide = new JSlider(SwingConstants.HORIZONTAL, min, max, current);
 		//this.masterGainSlide.setOrientation(SwingConstants.LEFT);
 		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
-		labelTable.put(new Integer(current), new JLabel("Default " + current));
-		labelTable.put(new Integer(min), new JLabel("Min " + min));
-		labelTable.put(new Integer(max), new JLabel("Max " + max));
+		labelTable.put(current, new JLabel("Default " + current));
+		labelTable.put(min, new JLabel("Min " + min));
+		labelTable.put(max, new JLabel("Max " + max));
 		this.masterGainSlide.setLabelTable(labelTable);
 		this.masterGainSlide.setPaintLabels(true);
 		this.masterGainSlide.setPaintTicks(true);

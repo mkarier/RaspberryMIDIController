@@ -16,7 +16,7 @@ public class AudioInput {
 	private DataLine.Info inInfo;
 	private int bufferSize = 1920; //This is how the old buffer calculated the buffer size: (int) format.getSampleRate() * format.getFrameSize();;
 	private byte[] buffer;
-	private int rate = 44100;
+	private float rate = 44800;
 	private int bit = 8;
 	private int channel = 1;
 	private boolean signed = true;
