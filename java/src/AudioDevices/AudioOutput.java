@@ -34,7 +34,7 @@ public class AudioOutput implements LineListener
 		if(buffer == null)
 			return;
 		else
-			this.lineOut.write(buffer, 0, buffer.length);
+			this.lineOut.write(buffer, 0, buffer.length-1);
 	}
 	
 	@Override
