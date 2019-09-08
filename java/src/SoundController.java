@@ -21,11 +21,13 @@ import AudioDevices.*;
 public class SoundController 
 {
 	
-	public static void main(String args[])
+	public static void main(String args[]) throws MidiUnavailableException
 	{
+		
 		AudioInput audioInput = new AudioInput();
 		AudioInputThread inputThread = new AudioInputThread(audioInput);
-		AudioOutput listener = new AudioOutput(audioInput);
+		//AudioOutput listener = new AudioOutput(audioInput);
+		AudioOutput listener = new TestEffect(audioInput);
 		AudioOutputThread outputThread = new AudioOutputThread(listener, inputThread);
 		
 		VolumeControl volController = new VolumeControl(listener);
