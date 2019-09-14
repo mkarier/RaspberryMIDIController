@@ -1,17 +1,20 @@
-package AudioDevices;
+package GuitarEffects;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
-public class AudioOutput implements LineListener 
+import AudioDevices.AudioInput;
+
+public class AudioOutputBase implements LineListener, I_AudioOutput
 {
 	public boolean playCompleted = false;
 	protected SourceDataLine lineOut;
 	private int bufferSize;
 	
-	public AudioOutput(AudioInput inputLine)
+	public AudioOutputBase(AudioInput inputLine)
 	{
 		try {
 			

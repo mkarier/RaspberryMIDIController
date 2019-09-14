@@ -13,21 +13,20 @@ import javax.sound.sampled.Line.Info;
 
 import AudioDevices.AudioInput;
 import AudioDevices.AudioInputThread;
-import AudioDevices.AudioOutput;
 import AudioDevices.AudioOutputThread;
-import AudioManiplation.VolumeControl;
+import AudioManipulation.VolumeControl;
 import GUI.ControllerCanvas;
+import GuitarEffects.*;
 import AudioDevices.*;
 public class SoundController 
 {
-	
 	public static void main(String args[]) throws MidiUnavailableException
 	{
-		
 		AudioInput audioInput = new AudioInput();
 		AudioInputThread inputThread = new AudioInputThread(audioInput);
-		//AudioOutput listener = new AudioOutput(audioInput);
-		AudioOutput listener = new TestEffect(audioInput);
+		I_AudioOutput listener = new AudioOutputBase(audioInput);
+		listener = new DistortionEffect(listener);
+		listener = new PitchShift(listener);
 		AudioOutputThread outputThread = new AudioOutputThread(listener, inputThread);
 		
 		VolumeControl volController = new VolumeControl(listener);
@@ -45,7 +44,13 @@ public class SoundController
 		//loopAudio(audioInput, listener);
 	}//end of main
 	
-	private static void loopAudio(AudioInput input, AudioOutput output)
+	
+	public static double log2(double x)
+	{
+		return (Math.log(x) /Math.log(2));
+	}
+	
+	private static void loopAudio(AudioInput input, I_AudioOutput output)
 	{
 		while(true)
 		{

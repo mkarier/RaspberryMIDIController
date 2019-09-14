@@ -1,17 +1,17 @@
-package AudioManiplation;
+package AudioManipulation;
 import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Control;
 import javax.sound.sampled.FloatControl;
 
 import AudioDevices.AudioInput;
-import AudioDevices.AudioOutput;
+import GuitarEffects.I_AudioOutput;
 
 public class VolumeControl
 {
 	
 	private BooleanControl muteControl;
 	private FloatControl masterGainControl;
-	public VolumeControl(AudioOutput out)
+	public VolumeControl(I_AudioOutput out)
 	{
 		this.muteControl = (BooleanControl) out.getLineOut().getControl(BooleanControl.Type.MUTE);
 		this.muteControl.setValue(false);
@@ -46,7 +46,7 @@ public class VolumeControl
 			index++;
 		}
 	}
-	public static void printControls(AudioOutput out)
+	public static void printControls(I_AudioOutput out)
 	{
 		System.out.println("Output controls");
 		Control controls[] = out.getLineOut().getControls();

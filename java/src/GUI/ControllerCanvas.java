@@ -1,6 +1,6 @@
 package GUI;
 import AudioDevices.*;
-import AudioManiplation.VolumeControl;
+import AudioManipulation.VolumeControl;
 
 import java.awt.*;
 

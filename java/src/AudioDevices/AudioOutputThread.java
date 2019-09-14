@@ -1,12 +1,14 @@
 package AudioDevices;
 
+import GuitarEffects.I_AudioOutput;
+
 public class AudioOutputThread extends Thread 
 {
-	private AudioOutput output;
+	private I_AudioOutput output;
 	private AudioInputThread inputThread;
 	private int stackSize;
 	
-	public AudioOutputThread(AudioOutput output, AudioInputThread inputThread)
+	public AudioOutputThread(I_AudioOutput output, AudioInputThread inputThread)
 	{
 		this.output = output;
 		this.inputThread = inputThread;

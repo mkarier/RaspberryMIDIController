@@ -1,9 +1,12 @@
-package AudioDevices;
+package GuitarEffects;
 
-public class DistortionEffect extends AudioOutput {
+import javax.sound.sampled.SourceDataLine;
 
-	public DistortionEffect(AudioInput inputLine) {
-		super(inputLine);
+public class DistortionEffect implements I_AudioOutput {
+
+	I_AudioOutput nextEffect;
+	public DistortionEffect(I_AudioOutput nextEffect) {
+		this.nextEffect = nextEffect;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -20,7 +23,7 @@ public class DistortionEffect extends AudioOutput {
 					//System.out.println(buffer[i]);
 					buffer[i] = (byte)(Math.abs(buffer[i]));
 				}
-				super.lineOut.write(buffer, 0, buffer.length -1);
+				this.nextEffect.outputAudio(buffer);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -28,5 +31,11 @@ public class DistortionEffect extends AudioOutput {
 			
 		}
 	}//end of outputAudio
+
+	@Override
+	public SourceDataLine getLineOut() {
+		// TODO Auto-generated method stub
+		return this.nextEffect.getLineOut();
+	}
 
 }

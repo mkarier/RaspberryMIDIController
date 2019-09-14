@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import AudioManiplation.VolumeControl;
+import AudioManipulation.VolumeControl;
 
 public class MasterGainSlide implements ChangeListener 
 {

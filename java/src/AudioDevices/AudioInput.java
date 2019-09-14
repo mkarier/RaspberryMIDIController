@@ -14,12 +14,12 @@ public class AudioInput {
 	private Info[] lines;
 	protected TargetDataLine inputLine;
 	private DataLine.Info inInfo;
-	private int bufferSize = 1920; //This is how the old buffer calculated the buffer size: (int) format.getSampleRate() * format.getFrameSize();;
+	private int bufferSize = 2048; //1920; //This is how the old buffer calculated the buffer size: (int) format.getSampleRate() * format.getFrameSize();;
 	private byte[] buffer;
-	private float rate = 44800;
+	private float rate = 44100;
 	private int bit = 8;
 	private int channel = 1;
-	private boolean signed = true;
+	private boolean signed = false;
 	private boolean big_endian = false;
 	
   public AudioInput(int line){

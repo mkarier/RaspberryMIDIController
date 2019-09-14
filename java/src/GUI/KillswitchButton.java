@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 
-import AudioManiplation.VolumeControl;
+import AudioManipulation.VolumeControl;
 
 public class KillswitchButton implements MouseListener
 {
